@@ -1,3 +1,4 @@
+import json
 import discord
 from discord.ext import commands
 
@@ -33,5 +34,6 @@ async def on_message(message):
             file.write(f'{message.author}: {message.content} \n')
             print(f'{message.author}:{message.content}')
 
-
-client.run('NzI1NTE3NDI2NzExNTkzMjg0.XvP4wQ._6k0C5HAwT8tDsI5HOizJGP1oGU')
+with open("properties.json") as properties:
+    data = json.load(properties)
+client.run(data["token"])
