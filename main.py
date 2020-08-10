@@ -5,7 +5,7 @@ from discord.ext import commands
 client = commands.Bot(command_prefix='.')
 
 
-#Prints message
+# Prints message
 @client.event
 async def on_disconnect():
     print("Bot disconnected")
@@ -34,6 +34,7 @@ async def on_message(message):
         with open('logs.txt', 'a') as file:
             file.write(f'{message.author}: {message.content} \n')
             print(f'{message.author}:{message.content}')
+
 
 with open("properties.json") as properties:
     data = json.load(properties)
