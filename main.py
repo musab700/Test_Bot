@@ -1,4 +1,5 @@
 import json
+import random
 import discord
 from discord.ext import commands
 
@@ -40,6 +41,16 @@ async def on_message(message):
 async def ping(message):
     await message.channel.send(f'Pong: {round(client.latency * 1000)} ms')
 
+
+@client.command()
+async def cf(message):
+    num = random.randint(0, 1)
+    if num == 0:
+        await message.channel.send('Heads')
+    else:
+        await message.channel.send('Tails')
+
 with open("properties.json") as properties:
     data = json.load(properties)
+
 client.run(data["token"])
