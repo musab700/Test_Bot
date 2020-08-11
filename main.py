@@ -7,13 +7,31 @@ client = commands.Bot(command_prefix='.')
 
 
 @client.event
+async def on_ready():
+    print("Bot is connected")
+
+
+@client.event
 async def on_disconnect():
     print("Bot disconnected")
 
 
+# Writes the messages in logs.txt and displays them in console
+
+
 @client.event
-async def on_ready():
-    print("Bot is connected")
+async def on_message(message):
+    await client.process_commands(message)
+    try:
+        with open('logs.txt', 'a') as file:
+            file.write(f'{message.author}: {message.content} \n')
+    except FileNotFoundError:
+        print("Error loading file")
+
+    if message.author == client:
+        return
+    else:
+        print(f'{message.author}:{message.content}')
 
 
 @client.event
@@ -26,19 +44,6 @@ async def on_member_join(member, channel):
 async def on_member_remove(member, channel):
     await channel.send(f'{member} left')
     print(f'{member} has joined')
-
-# Writes the messages in log.txt and displays them in console
-
-
-@client.event
-async def on_message(message):
-    await client.process_commands(message)
-    if message.author == client:
-        return
-    else:
-        with open('logs.txt', 'a') as file:
-            file.write(f'{message.author}: {message.content} \n')
-            print(f'{message.author}:{message.content}')
 
 
 # ____ Commands section ____
@@ -55,6 +60,7 @@ async def coinf(message):
         await message.channel.send('Heads')
     else:
         await message.channel.send('Tails')
+
 
 with open("properties.json") as properties:
     data = json.load(properties)
