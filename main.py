@@ -38,7 +38,7 @@ async def on_message(message):
 
 @client.command()
 async def ping(message):
-    await message.channel.send(f'Pong: {message.author.latency}')
+    await message.channel.send(f'Pong: {round(client.latency * 1000)}')
 
 with open("properties.json") as properties:
     data = json.load(properties)
