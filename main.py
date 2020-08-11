@@ -22,7 +22,7 @@ async def on_member_join(member):
 
 @client.event
 async def on_member_remove(member):
-    print(f'    {member} has left')
+    print(f'{member} has left')
 
 
 @client.event
@@ -33,7 +33,6 @@ async def on_message(message):
         with open('logs.txt', 'a') as file:
             file.write(f'{message.author}: {message.content} \n')
             print(f'{message.author}:{message.content}')
-
 
 with open("properties.json") as properties:
     data = json.load(properties)
