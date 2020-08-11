@@ -5,7 +5,6 @@ from discord.ext import commands
 client = commands.Bot(command_prefix='.')
 
 
-# Prints message
 @client.event
 async def on_disconnect():
     print("Bot disconnected")
@@ -23,7 +22,7 @@ async def on_member_join(member):
 
 @client.event
 async def on_member_remove(member):
-    print(f'{member} has left')
+    print(f'    {member} has left')
 
 
 @client.event
