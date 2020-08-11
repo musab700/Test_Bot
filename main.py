@@ -27,12 +27,18 @@ async def on_member_remove(member):
 
 @client.event
 async def on_message(message):
+    await client.process_commands(message)
     if message.author == client:
         return
     else:
         with open('logs.txt', 'a') as file:
             file.write(f'{message.author}: {message.content} \n')
             print(f'{message.author}:{message.content}')
+
+
+@client.command()
+async def ping(message):
+    await message.channel.send(f'Pong: {message.author.latency}')
 
 with open("properties.json") as properties:
     data = json.load(properties)
