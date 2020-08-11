@@ -17,13 +17,17 @@ async def on_ready():
 
 
 @client.event
-async def on_member_join(member):
+async def on_member_join(member, channel):
+    await channel.send(f'{member} joined')
     print(f'{member} has joined')
 
 
 @client.event
-async def on_member_remove(member):
-    print(f'{member} has left')
+async def on_member_remove(member, channel):
+    await channel.send(f'{member} left')
+    print(f'{member} has joined')
+
+# Writes the messages in log.txt and displays them in console
 
 
 @client.event
@@ -37,13 +41,15 @@ async def on_message(message):
             print(f'{message.author}:{message.content}')
 
 
+# ____ Commands section ____
+
 @client.command()
 async def ping(message):
     await message.channel.send(f'Pong: {round(client.latency * 1000)} ms')
 
 
 @client.command()
-async def cf(message):
+async def coinf(message):
     num = random.randint(0, 1)
     if num == 0:
         await message.channel.send('Heads')
