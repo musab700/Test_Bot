@@ -3,7 +3,7 @@ import random
 import discord
 from discord.ext import commands
 
-client = commands.Bot('.')
+client = commands.Bot('|')
 
 
 @client.event
@@ -23,14 +23,14 @@ async def cf(message, arg):
     if arg == 'h' or arg == 't':
         if arg == 'h':
             if num == 0:
-                await message.channel.send(f"{message.author.mention} It was heads, you win!")
+                await message.channel.send("{} It was heads, you win!".format(message.author.mention))
             else:
-                await message.channel.send(f"{message.author.mention} It was tails, you lose!")
+                await message.channel.send("{} It was tails, you lose!".format(message.author.mention))
         elif arg == 't':
             if num == 0:
-                await message.channel.send(f"{message.author.mention} It was heads, you lose!")
+                await message.channel.send("{} It was heads, you lose!".format(message.author.mention))
             else:
-                await message.channel.send(f"{message.author.mention} It was tails, you win!")
+                await message.channel.send("{} It was tails, you win!".format(message.author.mention))
     elif arg == "help":
         await message.channel.send("Usage: .cf h/t")
     else:
