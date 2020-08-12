@@ -3,7 +3,7 @@ import random
 import discord
 from discord.ext import commands
 
-client = commands.Bot('|')
+client = commands.Bot(command_prefix='|')
 
 
 @client.event
@@ -19,22 +19,13 @@ async def ping(ctx):
 
 @client.command()
 async def cf(message, arg):
-    num = random.randint(0, 1)
-    if arg == 'h' or arg == 't':
-        if arg == 'h':
-            if num == 0:
-                await message.channel.send("{} It was heads, you win!".format(message.author.mention))
-            else:
-                await message.channel.send("{} It was tails, you lose!".format(message.author.mention))
-        elif arg == 't':
-            if num == 0:
-                await message.channel.send("{} It was heads, you lose!".format(message.author.mention))
-            else:
-                await message.channel.send("{} It was tails, you win!".format(message.author.mention))
-    elif arg == "help":
-        await message.channel.send("Usage: .cf h/t")
+    is_heads = random.randint(0, 1)
+    input_heads = arg == 'h'
+    if is_heads == input_heads:
+        await message.channel.send("You win, it was {}".format('heads' if is_heads else 'tails'))
     else:
-        return
+        await message.channel.send("Sorry, it was {}".format('heads' if is_heads else 'tails'))
+
 
 with open("properties.json") as properties:
     data = json.load(properties)
