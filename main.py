@@ -11,6 +11,10 @@ async def on_ready():
     print('Bot is connected')
 
 
+#@client.event
+#async def on_member_join():
+
+
 # checks client ping
 @client.command()
 async def ping(ctx):
