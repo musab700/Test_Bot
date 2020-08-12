@@ -11,18 +11,6 @@ async def on_ready():
     print('Bot is connected')
 
 
-# logs messages into logs.txt
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-    else:
-        with open('logs.txt', 'a') as file:
-            file.write(f'{message.author}:{message.content}\n')
-            print(f'{message.author}:{message.content}')
-        await client.process_commands(message)
-
-
 # checks client ping
 @client.command()
 async def ping(ctx):
@@ -30,22 +18,23 @@ async def ping(ctx):
 
 
 @client.command()
-async def cf(ctx, arg):
+async def cf(message, arg):
     num = random.randint(0, 1)
     if arg == 'h' or arg == 't':
-        if arg == 'h' and num == 0:
-            await ctx.send("It was heads, you win!")
-        elif arg == 'h' and num == 1:
-            await ctx.send("It was tails, you lose!")
-        elif arg == 't' and num == 0:
-            await ctx.send("It was heads, you lose!")
-        else:
-            await ctx.send("It was tails, you win!")
+        if arg == 'h':
+            if num == 0:
+                await message.channel.send(f"{message.author.mention} It was heads, you win!")
+            else:
+                await message.channel.send(f"{message.author.mention} It was tails, you lose!")
+        elif arg == 't':
+            if num == 0:
+                await message.channel.send(f"{message.author.mention} It was heads, you lose!")
+            else:
+                await message.channel.send(f"{message.author.mention} It was tails, you win!")
     elif arg == "help":
-        await ctx.send("Usage: .cf h/t")
+        await message.channel.send("Usage: .cf h/t")
     else:
         return
-
 
 with open("properties.json") as properties:
     data = json.load(properties)
