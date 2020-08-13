@@ -5,14 +5,17 @@ from discord.ext import commands
 
 client = commands.Bot(command_prefix='|')
 
+ye_counter = 0
+
 
 @client.event
 async def on_ready():
     print('Bot is connected')
 
 
-#@client.event
-#async def on_member_join():
+@client.command()
+async def yecnter(ctx):
+    await ctx.send("{} ye's ye'd".format(ye_counter))
 
 
 # checks client ping
