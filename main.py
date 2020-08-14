@@ -23,12 +23,24 @@ async def ping(ctx):
 
 @client.command()
 async def cf(message, arg):
-    is_heads = random.randint(0, 1)
-    input_heads = arg == 'h'
-    if is_heads == input_heads:
-        await message.channel.send("You win, it was {}".format('heads' if is_heads else 'tails'))
+    if not arg == 'h' or arg == 't':
+        embed_incorrect = discord.Embed(title="", description="Usage: ^cf h/t", color=0xff3d00)
+
+        await message.channel.send(embed=embed_incorrect)
     else:
-        await message.channel.send("Sorry, it was {}".format('heads' if is_heads else 'tails'))
+        is_heads = random.randint(0, 1)
+        input_heads = arg == 'h'\
+
+        if is_heads == input_heads:
+            embed_win = discord.Embed(title="",
+                                      description="It was {}, you win!".format('heads' if is_heads else 'tails'),
+                                      color=0xff3d00)
+            await message.channel.send(embed=embed_win)
+        else:
+            embed_lose = discord.Embed(title="",
+                                       description="Sorry, it was {}".format('heads' if is_heads else 'tails'),
+                                       color=0xff3d00)
+            await message.channel.send(embed=embed_lose)
 
 
 @client.command()
