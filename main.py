@@ -24,7 +24,7 @@ async def ping(ctx):
 @client.command()
 async def cf(message, arg):
     if not arg == 'h' or arg == 't':
-        embed_incorrect = discord.Embed(title="", description="Usage: ^cf h/t", color=0xff3d00)
+        embed_incorrect = discord.Embed(title="", description="**Usage**: ^cf h/t", color=0xff3d00)
 
         await message.channel.send(embed=embed_incorrect)
     else:
@@ -33,12 +33,12 @@ async def cf(message, arg):
 
         if is_heads == input_heads:
             embed_win = discord.Embed(title="",
-                                      description="It was {}, you win!".format('heads' if is_heads else 'tails'),
+                                      description="**You win!** It was {}".format('heads' if is_heads else 'tails'),
                                       color=0xff3d00)
             await message.channel.send(embed=embed_win)
         else:
             embed_lose = discord.Embed(title="",
-                                       description="Sorry, it was {}".format('heads' if is_heads else 'tails'),
+                                       description="**You lose!**, it was {}".format('heads' if is_heads else 'tails'),
                                        color=0xff3d00)
             await message.channel.send(embed=embed_lose)
 
