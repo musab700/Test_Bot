@@ -22,6 +22,23 @@ async def ping(ctx):
 
 
 @client.command()
+async def coinf(ctx, arg):
+    h_or_t = random.randint(0, 1)
+    if arg == 'h':
+        if h_or_t == 0:
+            await ctx.send("You win, it was heads")
+        else:
+            await ctx.send("You lose, it was tails")
+    elif arg == 't':
+        if h_or_t == 1:
+            await ctx.send("You win, it was tails")
+        else:
+            await ctx.send("You lose, it was heads")
+    else:
+        await ctx.send("Invalid usage")
+
+
+@client.command()
 async def register(ctx):
     user = str(ctx.message.author.id)
     if user not in data:
