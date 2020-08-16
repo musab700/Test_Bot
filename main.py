@@ -3,7 +3,7 @@ import random
 import discord
 from discord.ext import commands
 
-client = commands.Bot(command_prefix='^')
+client = commands.Bot(command_prefix="`")
 
 data = {}
 
@@ -18,13 +18,14 @@ async def on_ready():
 
 @client.command()
 async def ping(ctx):
-    await ctx.send(f'Ping: {round(client.latency * 1000)}ms')
+    ping_embed = discord.Embed(title="Ping: {}ms".format(round(client.latency*1000)))
+    await ctx.send(embed=ping_embed)
 
 
 @client.command()
-async def coinf(ctx, arg):
+async def cf(ctx, arg):
     h_or_t = random.randint(0, 1)
-    coinflip_embed = discord.Embed
+    coinflip_embed = discord.Embed()
     if arg == 'h':
         if h_or_t == 0:
             coinflip_embed.title = "You win it was heads"
@@ -53,7 +54,7 @@ async def register(ctx):
         with open('data.json', 'w') as f:
             json.dump(data, f)
         register_embed.title = "You're registered!"
-        await ctx.message(embed=register_embed)
+        await ctx.send(embed=register_embed)
     else:
         register_embed.title = "You're already registered"
         await ctx.send(embed=register_embed)
