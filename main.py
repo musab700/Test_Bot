@@ -24,18 +24,24 @@ async def ping(ctx):
 @client.command()
 async def coinf(ctx, arg):
     h_or_t = random.randint(0, 1)
+    coinflip_embed = discord.Embed
     if arg == 'h':
         if h_or_t == 0:
-            await ctx.send("You win, it was heads")
+            coinflip_embed.title = "You win it was heads"
+            await ctx.send(embed=coinflip_embed)
         else:
-            await ctx.send("You lose, it was tails")
+            coinflip_embed.title = "You lose it was tails"
+            await ctx.send(embed=coinflip_embed)
     elif arg == 't':
         if h_or_t == 1:
-            await ctx.send("You win, it was tails")
+            coinflip_embed.title = "You win, it was tails"
+            await ctx.send(embed=coinflip_embed)
         else:
-            await ctx.send("You lose, it was heads")
+            coinflip_embed.title = "You lose, it was heads"
+            await ctx.send(embed=coinflip_embed)
     else:
-        await ctx.send("Invalid usage")
+        coinflip_embed.title = "Invalid usage"
+        await ctx.send(embed=coinflip_embed)
 
 
 @client.command()
