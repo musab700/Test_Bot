@@ -23,25 +23,30 @@ async def ping(ctx):
 
 
 @client.command()
-async def cf(ctx, arg):
-    h_or_t = random.randint(0, 1)
+async def cf(ctx, arg, amount: int):
+    user_id = str(ctx.authon.id)
     coinflip_embed = discord.Embed()
-    if arg == 'h':
-        if h_or_t == 0:
-            coinflip_embed.title = "{} You win it was heads".format(ctx.message.author.mention)
-            await ctx.send(embed=coinflip_embed)
+    if user_id in data:
+        h_or_t = random.randint(0, 1)
+        if arg == 'h':
+            if h_or_t == 0:
+                coinflip_embed.title = "{} You win it was heads".format(ctx.message.author.mention)
+                await ctx.send(embed=coinflip_embed)
+            else:
+                coinflip_embed.title = "{} You lose it was tails".format(ctx.message.author.mention)
+                await ctx.send(embed=coinflip_embed)
+        elif arg == 't':
+            if h_or_t == 1:
+                coinflip_embed.title = "{} You win, it was tails".format(ctx.message.author.mention)
+                await ctx.send(embed=coinflip_embed)
+            else:
+                coinflip_embed.title = "{} You lose, it was heads".format(ctx.message.author.mention)
+                await ctx.send(embed=coinflip_embed)
         else:
-            coinflip_embed.title = "{} You lose it was tails".format(ctx.message.author.mention)
-            await ctx.send(embed=coinflip_embed)
-    elif arg == 't':
-        if h_or_t == 1:
-            coinflip_embed.title = "{} You win, it was tails".format(ctx.message.author.mention)
-            await ctx.send(embed=coinflip_embed)
-        else:
-            coinflip_embed.title = "{} You lose, it was heads".format(ctx.message.author.mention)
+            coinflip_embed.title = "Invalid usage"
             await ctx.send(embed=coinflip_embed)
     else:
-        coinflip_embed.title = "Invalid usage"
+        coinflip_embed.title = "You're not registered"
         await ctx.send(embed=coinflip_embed)
 
 
