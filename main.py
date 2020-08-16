@@ -11,7 +11,7 @@ data = {}
 @client.event
 async def on_ready():
     global data
-    with open('data.json', 'w+') as file:
+    with open('data.json') as file:
         data = json.load(file)
     print("{} connected".format(client.user))
 
@@ -31,24 +31,24 @@ async def cf(ctx, arg, amounts: int):
         with open('data.json', 'w') as cf_file:
             if arg == 'h':
                 if h_or_t == 0:
-                    coinflip_embed.title = "{} You win it was heads".format(ctx.message.author.mention)
-                    await ctx.send(embed=coinflip_embed)
+                    coinflip_embed.title = f"You won {amounts}, it was heads"
+                    await ctx.send("{}".format(ctx.message.author.mention), embed=coinflip_embed)
                     data[user_id] += amounts
                     json.dump(data, cf_file)
                 else:
-                    coinflip_embed.title = "{} You lose it was tails".format(ctx.message.author.mention)
-                    await ctx.send(embed=coinflip_embed)
+                    coinflip_embed.title = f"You lost {amounts}, it was tails"
+                    await ctx.send("{}".format(ctx.message.author.mention), embed=coinflip_embed)
                     data[user_id] -= amounts
                     json.dump(data, cf_file)
             elif arg == 't':
                 if h_or_t == 1:
-                    coinflip_embed.title = "{} You win, it was tails".format(ctx.message.author.mention)
-                    await ctx.send(embed=coinflip_embed)
+                    coinflip_embed.title = f"You won {amounts}, it was tails"
+                    await ctx.send("{}".format(ctx.message.author.mention), embed=coinflip_embed)
                     data[user_id] += amounts
                     json.dump(data, cf_file)
                 else:
-                    coinflip_embed.title = "{} You lose, it was heads".format(ctx.message.author.mention)
-                    await ctx.send(embed=coinflip_embed)
+                    coinflip_embed.title = f"You lost {amounts}, it was heads"
+                    await ctx.send("{}".format(ctx.message.author.mention), embed=coinflip_embed)
                     data[user_id] -= amounts
                     json.dump(data, cf_file)
             else:
