@@ -46,13 +46,17 @@ async def coinf(ctx, arg):
 
 @client.command()
 async def register(ctx):
+    register_embed = discord.Embed()
     user = str(ctx.message.author.id)
     if user not in data:
         data[user] = 100
         with open('data.json', 'w') as f:
             json.dump(data, f)
+        register_embed.title = "You're registered!"
+        await ctx.message(embed=register_embed)
     else:
-        ctx.send("You're already registered")
+        register_embed.title = "You're already registered"
+        await ctx.send(embed=register_embed)
 
 
 with open('properties.json') as properties:
