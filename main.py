@@ -28,17 +28,17 @@ async def cf(ctx, arg):
     coinflip_embed = discord.Embed()
     if arg == 'h':
         if h_or_t == 0:
-            coinflip_embed.title = "You win it was heads"
+            coinflip_embed.title = "{} You win it was heads".format(ctx.message.author.mention)
             await ctx.send(embed=coinflip_embed)
         else:
-            coinflip_embed.title = "You lose it was tails"
+            coinflip_embed.title = "{} You lose it was tails".format(ctx.message.author.mention)
             await ctx.send(embed=coinflip_embed)
     elif arg == 't':
         if h_or_t == 1:
-            coinflip_embed.title = "You win, it was tails"
+            coinflip_embed.title = "{} You win, it was tails".format(ctx.message.author.mention)
             await ctx.send(embed=coinflip_embed)
         else:
-            coinflip_embed.title = "You lose, it was heads"
+            coinflip_embed.title = "{} You lose, it was heads".format(ctx.message.author.mention)
             await ctx.send(embed=coinflip_embed)
     else:
         coinflip_embed.title = "Invalid usage"
