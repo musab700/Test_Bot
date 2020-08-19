@@ -30,7 +30,7 @@ async def cf(ctx, arg, amounts: int):
         data[user_id] = 100
         with open('data.json', 'w') as f:
             json.dump(data, f)
-    else:
+    elif amounts <= data[user_id]:
         h_or_t = random.randint(0, 1)
         with open('data.json', 'w') as cf_file:
             if arg == 'h':
@@ -58,7 +58,9 @@ async def cf(ctx, arg, amounts: int):
             else:
                 coinflip_embed.title = "Invalid usage"
                 await ctx.send(embed=coinflip_embed)
-
+    else:
+        coinflip_embed.title = "You do not have enough balance"
+        await ctx.send(embed=coinflip_embed)
 
 with open('properties.json') as properties:
     token = json.load(properties)
