@@ -26,7 +26,11 @@ async def ping(ctx):
 async def cf(ctx, arg, amounts: int):
     user_id = str(ctx.author.id)
     coinflip_embed = discord.Embed()
-    if user_id in data:
+    if user_id not in data:
+        data[user_id] = 100
+        with open('data.json', 'w') as f:
+            json.dump(data, f)
+    else:
         h_or_t = random.randint(0, 1)
         with open('data.json', 'w') as cf_file:
             if arg == 'h':
@@ -54,24 +58,6 @@ async def cf(ctx, arg, amounts: int):
             else:
                 coinflip_embed.title = "Invalid usage"
                 await ctx.send(embed=coinflip_embed)
-    else:
-        coinflip_embed.title = "You're not registered"
-        await ctx.send(embed=coinflip_embed)
-
-
-@client.command()
-async def register(ctx):
-    register_embed = discord.Embed()
-    user = str(ctx.message.author.id)
-    if user not in data:
-        data[user] = 100
-        with open('data.json', 'w') as f:
-            json.dump(data, f)
-        register_embed.title = "You're registered!"
-        await ctx.send(embed=register_embed)
-    else:
-        register_embed.title = "You're already registered"
-        await ctx.send(embed=register_embed)
 
 
 with open('properties.json') as properties:
