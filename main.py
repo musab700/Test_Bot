@@ -26,8 +26,15 @@ async def ping(ctx):
 async def bal(ctx):
     user_id = str(ctx.author.id)
     bal_embed = discord.Embed()
-    bal_embed.title = "You have {} points".format(data[user_id])
-    await ctx.send(embed=bal_embed)
+    if user_id not in data:
+        data[user_id] = 100
+        with open('data.json', 'w') as f:
+            json.dump(data, f)
+        bal_embed.title = "You have {} points".format(data[user_id])
+        await ctx.send(embed=bal_embed)
+    else:
+        bal_embed.title = "You have {} points".format(data[user_id])
+        await ctx.send(embed=bal_embed)
 
 
 @client.command()
