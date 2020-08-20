@@ -23,6 +23,14 @@ async def ping(ctx):
 
 
 @client.command()
+async def bal(ctx):
+    user_id = str(ctx.author.id)
+    bal_embed = discord.Embed()
+    bal_embed.title = "You have {} points".format(data[user_id])
+    await ctx.send(embed=bal_embed)
+
+
+@client.command()
 async def cf(ctx, arg, amounts: int):
     user_id = str(ctx.author.id)
     coinflip_embed = discord.Embed()
@@ -61,6 +69,7 @@ async def cf(ctx, arg, amounts: int):
     else:
         coinflip_embed.title = "You do not have enough balance"
         await ctx.send(embed=coinflip_embed)
+
 
 with open('properties.json') as properties:
     token = json.load(properties)
