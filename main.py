@@ -1,6 +1,7 @@
 import json
 import random
 import discord
+from discord import Embed
 from discord.ext import commands
 
 client = commands.Bot(command_prefix="`")
@@ -76,6 +77,27 @@ async def cf(ctx, arg, amounts: int):
     else:
         coinflip_embed.title = "You do not have enough balance"
         await ctx.send(embed=coinflip_embed)
+
+
+@client.command()
+@commands.cooldown(1, 3600, commands.BucketType.user)
+async def pet(ctx):
+    user_id = str(ctx.author.id)
+    pet_amount = random.randint(100, 1000)
+    pet_embed = discord.Embed()
+    pet_embed.title = "You earned {} from petting".format(pet_amount)
+    data[user_id] += pet_amount
+    await ctx.send(embed=pet_embed)
+    with open('data.json') as h_file:
+        json.dump(data, h_file)
+
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandOnCooldown):
+        cooldown_embed: Embed = discord.Embed()
+        cooldown_embed.title = "You can pet again in {} minutes".format(round(error.retry_after / 60))
+        await ctx.send(embed=cooldown_embed)
 
 
 with open('properties.json') as properties:
