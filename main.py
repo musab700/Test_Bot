@@ -1,7 +1,6 @@
 import json
 import random
 import discord
-from discord import Embed
 from discord.ext import commands
 
 client = commands.Bot(command_prefix="`")
@@ -26,7 +25,7 @@ async def ping(ctx):
 @client.command()
 async def bal(ctx):
     user_id = str(ctx.author.id)
-    bal_embed = discord.Embed()
+    bal_embed = discord.Embed(color=0xff6737)
     if user_id not in data:
         data[user_id] = 100
         with open('data.json', 'w') as f:
@@ -41,7 +40,7 @@ async def bal(ctx):
 @client.command()
 async def cf(ctx, arg, amounts: int):
     user_id = str(ctx.author.id)
-    coinflip_embed = discord.Embed()
+    coinflip_embed = discord.Embed(color=0xff6737)
     if user_id not in data:
         data[user_id] = 100
         with open('data.json', 'w') as f:
@@ -84,7 +83,7 @@ async def cf(ctx, arg, amounts: int):
 async def pet(ctx):
     user_id = str(ctx.author.id)
     pet_amount = random.randint(100, 1000)
-    pet_embed = discord.Embed()
+    pet_embed = discord.Embed(color=0xff6737)
     pet_embed.title = "You earned {} from petting".format(pet_amount)
     data[user_id] += pet_amount
     await ctx.send(embed=pet_embed)
@@ -95,7 +94,7 @@ async def pet(ctx):
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
-        cooldown_embed: Embed = discord.Embed()
+        cooldown_embed = discord.Embed(color=0xff6737)
         cooldown_embed.title = "You can pet again in {} minutes".format(round(error.retry_after / 60))
         await ctx.send(embed=cooldown_embed)
 
