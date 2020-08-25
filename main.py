@@ -8,6 +8,8 @@ client = commands.Bot(command_prefix="`")
 data = {}
 
 
+# loads the json file with all the amounts
+
 @client.event
 async def on_ready():
     global data
@@ -16,11 +18,15 @@ async def on_ready():
     print("{} connected".format(client.user))
 
 
+# ping command
+
 @client.command()
 async def ping(ctx):
     ping_embed = discord.Embed(title="Ping: {}ms".format(round(client.latency * 1000)), color=0xff6737)
     await ctx.send(embed=ping_embed)
 
+
+# balance command
 
 @client.command()
 async def bal(ctx):
@@ -36,6 +42,8 @@ async def bal(ctx):
         bal_embed.title = "You have {} points".format(data[user_id])
         await ctx.send(embed=bal_embed)
 
+
+# coinflip command
 
 @client.command()
 async def cf(ctx, arg, amounts: int):
@@ -78,6 +86,8 @@ async def cf(ctx, arg, amounts: int):
         await ctx.send(embed=coinflip_embed)
 
 
+# pet command
+
 @client.command()
 @commands.cooldown(1, 3600, commands.BucketType.user)
 async def pet(ctx):
@@ -93,7 +103,7 @@ async def pet(ctx):
 
 @client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandOnCooldown):
+    if isinstance(error, commands.CommandOnCooldown):  # shows cooldown time when pet command is invoked
         cooldown_embed = discord.Embed(color=0xff6737)
         cooldown_embed.title = "You can pet again in {} minutes".format(round(error.retry_after / 60))
         await ctx.send(embed=cooldown_embed)
