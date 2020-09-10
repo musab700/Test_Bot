@@ -1,9 +1,10 @@
 import discord
 from discord.ext import commands
 import random
+import json
 
 
-class Coinflip(commands.Cog()):
+class Economy(commands.Cog):
     def __int__(self, bot):
         self.bot = bot
 
@@ -20,4 +21,4 @@ class Coinflip(commands.Cog()):
 
 
 def setup(bot):
-    bot.add_cog(Coinflip(bot))
+    bot.add_cog(Economy(bot))
